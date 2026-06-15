@@ -39,6 +39,19 @@ header {visibility: hidden;}
 [data-testid="stGitHubButton"] {display: none;}
 .viewerBadge_container__1QSob {display: none;}
 .styles_viewerBadge__1yB5_ {display: none;}
+
+/* THIS removes the Manage App button bottom right */
+[data-testid="manage-app-button"] {display: none !important;}
+.st-emotion-cache-h4xjwg {display: none !important;}
+[data-testid="stStatusWidget"] {display: none !important;}
+#stDecoration {display: none !important;}
+.reportview-container .main footer {visibility: hidden;}
+section[data-testid="stSidebar"] > div {padding-top: 0rem;}
+
+/* Nuclear option — hides everything bottom right */
+.st-emotion-cache-1dp5vir {display: none !important;}
+.st-emotion-cache-15ecox0 {display: none !important;}
+iframe[title="streamlit_analytics"] {display: none !important;}
 </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
