@@ -1,2 +1,3 @@
 ID,Title,Severity,Systems,Style,MTTR (min),Created At,Summary
+inc-1781527600,Payment gateway latency spike in settlement window,P2,"Core Banking, API Gateway, Databricks ETL",Blameless,,2026-06-15T18:16:40.979810Z,"Blameless RCA draft prepared for Payment gateway latency spike in settlement window with severity P2. The incident affected Core Banking, API Gateway, Databricks ETL and highlights control gaps, monitoring, and response coordination."
 inc-1781526993,,P1,,Blameless,,2026-06-15T18:06:33.547666Z,"Blameless RCA draft prepared for  with severity P1. The incident affected  and highlights control gaps, monitoring, and response coordination."
