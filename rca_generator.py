@@ -38,7 +38,11 @@ header {visibility: hidden;}
 [data-testid="stDecoration"] {display: none;}
 [data-testid="stGitHubButton"] {display: none;}
 .viewerBadge_container__1QSob {display: none;}
+.viewerBadge_link__qRIco {display: none !important;}
+img[alt="Streamlit logo"] {display: none !important;}
+a[href="https://streamlit.io"] {display: none !important;}
 .styles_viewerBadge__1yB5_ {display: none;}
+#streaming-indicator {display: none !important;}
 
 /* Hide the bottom-right Streamlit status / manage app area */
 [data-testid="manage-app-button"] {display: none !important;}
@@ -50,6 +54,7 @@ button[title="Manage app"] {display: none !important;}
 button[aria-label="Manage app"] {display: none !important;}
 #stDecoration {display: none !important;}
 .reportview-container .main footer {visibility: hidden;}
+footer:after {display: none !important;}
 section[data-testid="stSidebar"] > div {padding-top: 0rem;}
 
 /* Force hide the bottom-right widget block if it is rendered by the host */
