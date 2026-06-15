@@ -40,17 +40,26 @@ header {visibility: hidden;}
 .viewerBadge_container__1QSob {display: none;}
 .styles_viewerBadge__1yB5_ {display: none;}
 
-/* THIS removes the Manage App button bottom right */
+/* Hide the bottom-right Streamlit status / manage app area */
 [data-testid="manage-app-button"] {display: none !important;}
-.st-emotion-cache-h4xjwg {display: none !important;}
 [data-testid="stStatusWidget"] {display: none !important;}
+button[data-testid="manage-app-button"] {display: none !important;}
+button[kind="secondary"][title*="Manage"] {display: none !important;}
+button[kind="secondary"][aria-label*="Manage"] {display: none !important;}
+button[title="Manage app"] {display: none !important;}
+button[aria-label="Manage app"] {display: none !important;}
 #stDecoration {display: none !important;}
 .reportview-container .main footer {visibility: hidden;}
 section[data-testid="stSidebar"] > div {padding-top: 0rem;}
 
-/* Nuclear option — hides everything bottom right */
-.st-emotion-cache-1dp5vir {display: none !important;}
-.st-emotion-cache-15ecox0 {display: none !important;}
+/* Force hide the bottom-right widget block if it is rendered by the host */
+div[data-testid="stStatusWidget"] *,
+div[data-testid="stStatusWidget"] {display: none !important; visibility: hidden !important;}
+#root > div:last-child > div:last-child > div:last-child > div:last-child > button {display: none !important;}
+#root div[style*="position: fixed"][style*="bottom"] button {display: none !important;}
+
+/* Nuclear option for the lower-right area */
+.st-emotion-cache-1dp5vir, .st-emotion-cache-15ecox0 {display: none !important;}
 iframe[title="streamlit_analytics"] {display: none !important;}
 </style>
 """
