@@ -155,7 +155,19 @@ div.stTextInput>div>input:focus, div.stTextArea>div>textarea:focus { border-colo
 
 @media (max-width: 576px) {
   html, body, [class*="stApp"] { font-size: 0.92rem; }
-  [data-testid="stSidebar"] { position: relative !important; width: 100% !important; border-right: none !important; }
+  [data-testid="stSidebar"] { 
+    position: fixed !important; 
+    left: 0 !important; 
+    top: 0 !important; 
+    width: 85vw !important; 
+    height: 100vh !important; 
+    z-index: 1000 !important;
+    overflow-y: auto !important;
+    border-right: 1px solid rgba(148,163,184,0.25) !important;
+  }
+  [data-testid="stAppViewContainer"] {
+    margin-left: 0 !important;
+  }
   [data-testid="stSidebar"] .css-1d391kg { padding: 0 0.75rem 0.5rem 0.75rem; }
   .stSidebar, .css-1d391kg, .css-1w3r98c { margin: 0 !important; }
   .block-container { padding-left: 0.5rem; padding-right: 0.5rem; }
