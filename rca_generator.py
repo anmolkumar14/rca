@@ -18,10 +18,30 @@ from utils.history import (
 load_dotenv()
 
 st.set_page_config(
-    page_title="Financial Sector RCA Generator",
-    page_icon="🏦",
+    page_title="AK Digital Lab — RCA Generator",
+    page_icon="🔍",
     layout="wide",
+    menu_items={
+        "Get Help": None,
+        "Report a bug": None,
+        "About": "AK Digital Lab | AI-Powered Banking Tools | Built by Anmol Kumar",
+    },
 )
+
+hide_streamlit_style = """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+.stDeployButton {display: none;}
+[data-testid="stToolbar"] {display: none;}
+[data-testid="stDecoration"] {display: none;}
+[data-testid="stGitHubButton"] {display: none;}
+.viewerBadge_container__1QSob {display: none;}
+.styles_viewerBadge__1yB5_ {display: none;}
+</style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 CUSTOM_CSS = """
 <style>
