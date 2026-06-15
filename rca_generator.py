@@ -142,8 +142,27 @@ div.stTextInput>div>input:focus, div.stTextArea>div>textarea:focus { border-colo
 
 @media (max-width: 768px) {
   .block-container { padding-left: 0.65rem; padding-right: 0.65rem; }
-  .hero-card { border-radius: 16px; }
+  .hero-card, .panel-card, .history-card, .premium-card { border-radius: 16px; width: 100% !important; }
+  .hero-card { margin-bottom: 16px; }
   .premium-card { padding: 12px; }
+  .hero-grid { gap: 12px; }
+  .card-title-row { flex-direction: column; align-items: stretch; gap: 12px; }
+  .copy-btn, .stButton>button { width: 100% !important; }
+  .badge-row { justify-content: flex-start; }
+  .kicker { font-size: 0.82rem; }
+  .rca-body { font-size: 0.95rem; }
+}
+
+@media (max-width: 576px) {
+  html, body, [class*="stApp"] { font-size: 0.92rem; }
+  [data-testid="stSidebar"] { position: relative !important; width: 100% !important; border-right: none !important; }
+  [data-testid="stSidebar"] .css-1d391kg { padding: 0 0.75rem 0.5rem 0.75rem; }
+  .stSidebar, .css-1d391kg, .css-1w3r98c { margin: 0 !important; }
+  .block-container { padding-left: 0.5rem; padding-right: 0.5rem; }
+  .hero-card, .panel-card, .history-card, .premium-card { margin: 0 0 16px 0; }
+  .copy-btn, .stButton>button { font-size: 0.95rem; padding: 0.75rem 0.9rem; }
+  .rca-body { font-size: 0.9rem; line-height: 1.6; }
+  .stTextInput>div>input, .stTextArea>div>textarea, .stSelectbox>div>div { min-width: 0; }
 }
 </style>
 """
