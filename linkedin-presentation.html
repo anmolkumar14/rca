@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Flow Diagram</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #030610;
+      color: #f8fbff;
+    }
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 32px;
+    }
+    h1, h2 {
+      margin: 0;
+    }
+    .section {
+      margin-top: 40px;
+      padding: 28px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .diagram-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+    .diagram-step {
+      padding: 24px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(10, 132, 255, 0.18);
+    }
+    .diagram-step strong {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 1.05rem;
+    }
+    .diagram-step p {
+      margin: 0;
+      color: #b3c4e3;
+      line-height: 1.6;
+    }
+    .cta-buttons {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .button-primary {
+      background: linear-gradient(135deg, #0a84ff, #0f75f8);
+      color: #fff;
+    }
+    .button-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f8fbff;
+    }
+    .link-note {
+      margin-top: 14px;
+      color: #7ca5ff;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="section">
+      <h2>Live flow diagram</h2>
+      <p style="color:#9bb3cb; margin-top: 12px;">
+        AI-powered RCA Generator flow from alert ingestion through root-cause analysis and report delivery.
+      </p>
+      <div class="diagram-grid">
+        <div class="diagram-step">
+          <strong>Alert ingestion</strong>
+          <p>Capture Azure Monitor alerts and normalize alert details for processing.</p>
+        </div>
+        <div class="diagram-step">
+          <strong>Incident history</strong>
+          <p>Load past incidents to compare trends and surface recurring root causes.</p>
+        </div>
+        <div class="diagram-step">
+          <strong>AI prompt build</strong>
+          <p>Combine alert summary, uploaded logs, and history into a single prompt.</p>
+        </div>
+        <div class="diagram-step">
+          <strong>AI RCA generation</strong>
+          <p>Use the model to generate a clear root cause analysis and recommendations.</p>
+        </div>
+        <div class="diagram-step">
+          <strong>Report delivery</strong>
+          <p>Display the RCA summary and save it back to history for future review.</p>
+        </div>
+      </div>
+      <div class="link-note">
+        Live app: <a href="https://akdigitallab.streamlit.app/" target="_blank" style="color:#7ca5ff;">https://akdigitallab.streamlit.app/</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Let’s connect</h2>
+      <p style="color:#9bb3cb; margin-top: 12px;">
+        Share this page and reach out for collaboration, consulting, or product engineering and incident response work.
+      </p>
+      <div class="cta-buttons">
+        <a class="button button-primary" href="https://www.linkedin.com/in/anmol-kumar-6a956433/?skipRedirect=true" target="_blank">
+          Anmol Kumar | LinkedIn
+        </a>
+        <a class="button button-secondary" href="mailto:anmolrkumar@live.com">
+          Email me
+        </a>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
