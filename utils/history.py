@@ -63,6 +63,11 @@ def load_history(limit=10):
     return load_incidents(limit=limit)
 
 
+def load_incident_history(query=None, limit=None):
+    """Return historical incidents for comparison and pattern matching."""
+    return load_incidents(query=query, limit=limit)
+
+
 def load_incidents(query=None, limit=None):
     ensure_incidents_file()
     with INCIDENTS_FILE.open("r", encoding="utf-8") as handle:

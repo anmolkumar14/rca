@@ -26,5 +26,19 @@
     "fix_applied": "",
     "created_at": "2026-06-15T18:16:40.979810Z",
     "mttr_minutes": null
+  },
+  {
+    "id": "inc-1781556153",
+    "title": "Payment gateway latency spike in settlement window",
+    "severity": "P2",
+    "systems": "Core Banking, API Gateway, Databricks ETL",
+    "style": "Blameless",
+    "summary": "Blameless RCA draft prepared for Payment gateway latency spike in settlement window with severity P2. The incident affected Core Banking, API Gateway, Databricks ETL and highlights control gaps, monitoring, and response coordination.",
+    "description": "",
+    "timeline": "",
+    "root_cause": "",
+    "fix_applied": "",
+    "created_at": "2026-06-16T02:12:33.644768Z",
+    "mttr_minutes": null
   }
 ]

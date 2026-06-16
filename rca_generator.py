@@ -6,7 +6,9 @@ import streamlit.components.v1 as components
 from dotenv import load_dotenv
 
 from utils.ai_client import generate_rca
+from utils.azure_monitor import get_latest_alert
 from utils.export_utils import export_document
+import utils.history as history_utils
 from utils.history import (
     compute_history_stats,
     export_history_csv,
@@ -303,6 +305,52 @@ def main():
 
     st.markdown("<div class='footer-note'>Use this workspace to capture production incidents, generate post-mortem RCA documents, and export them for audit, SRE, or technology leadership review.</div>", unsafe_allow_html=True)
 
+    history_items = history_utils.load_incident_history(limit=8)
+    history_text = "\n\n".join([
+        f"Title: {item['title']} | Severity: {item['severity']} | Systems: {item['systems']} | Fix Applied: {item['fix_applied']} | Summary: {item['summary']}"
+        for item in history_items
+    ])
+
+    alert = get_latest_alert()
+    if alert and alert.get("severity") == "P1":
+        st.markdown("<div class='footer-note'>A P1 alert was detected from Azure Monitor. The app will auto-generate an RCA draft based on the latest alert.</div>", unsafe_allow_html=True)
+        incident_title = alert.get("name", "Azure Monitor P1 Alert")
+        severity = "P1"
+        systems = alert.get("resource", "Azure Resource")
+        description = alert.get("description", "No description available from Azure Monitor.")
+        timeline = f"Alert started at {alert.get('start_time')}"
+        root_cause = "Pending deeper analysis of Azure Monitor alert details and resource context."
+        fix_applied = "None yet - incident analysis in progress."
+        logs = None
+        output_style = st.session_state.get("output_style", DEFAULT_INCIDENT["output_style"])
+
+        result = generate_rca(
+            title=incident_title,
+            severity=severity,
+            systems=systems,
+            description=description,
+            timeline=timeline,
+            root_cause=root_cause,
+            fix_applied=fix_applied,
+            output_style=output_style,
+            logs=logs,
+            history=history_text,
+        )
+        st.session_state['rca_result'] = result
+        st.session_state['last_style'] = output_style
+        save_history({
+            'title': incident_title,
+            'severity': severity,
+            'systems': systems,
+            'style': output_style,
+            'summary': result['summary'],
+            'description': description,
+            'timeline': timeline,
+            'root_cause': root_cause,
+            'fix_applied': fix_applied,
+        })
+        st.success("Auto-generated RCA from Azure Monitor P1 alert and saved to history.")
+
     left, right = st.columns([1.15, 0.85], gap="large")
 
     with left:
@@ -311,6 +359,13 @@ def main():
         incident_title = st.text_input("Incident title", key="incident_title", value=st.session_state.get("incident_title", DEFAULT_INCIDENT["incident_title"]), placeholder="Enter the incident title")
         severity = st.selectbox("Severity", ["P1", "P2", "P3", "P4"], index=["P1", "P2", "P3", "P4"].index(st.session_state.get("severity", DEFAULT_INCIDENT["severity"])), key="severity")
         systems = st.text_input("Affected systems", key="systems", value=st.session_state.get("systems", DEFAULT_INCIDENT["systems"]), placeholder="Enter affected systems")
+        uploaded_file = st.file_uploader("Upload your log file", type=["log", "txt", "json"], help="Optional: attach the incident logs for automatic root cause extraction")
+        logs = None
+        if uploaded_file is not None:
+            log_content = uploaded_file.read().decode("utf-8", errors="replace")
+            logs = log_content
+            st.markdown(f"<div class='footer-note'>Uploaded log file: <strong>{uploaded_file.name}</strong> — {len(log_content)} characters loaded.</div>", unsafe_allow_html=True)
+
         description = st.text_area("Incident description", key="description", value=st.session_state.get("description", DEFAULT_INCIDENT["description"]), height=110)
         timeline = st.text_area("Timeline", key="timeline", value=st.session_state.get("timeline", DEFAULT_INCIDENT["timeline"]), height=110)
         root_cause = st.text_area("Root cause", key="root_cause", value=st.session_state.get("root_cause", DEFAULT_INCIDENT["root_cause"]), height=110)
@@ -333,6 +388,8 @@ def main():
                     root_cause=root_cause,
                     fix_applied=fix_applied,
                     output_style=output_style,
+                    logs=logs,
+                    history=history_text,
                 )
             st.session_state['rca_result'] = result
             st.session_state['last_style'] = output_style

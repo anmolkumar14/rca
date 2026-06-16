@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def generate_rca(title, severity, systems, description, timeline, root_cause, fix_applied, output_style):
+def generate_rca(title, severity, systems, description, timeline, root_cause, fix_applied, output_style, logs=None, history=None):
     """Generate a banking RCA document using Anthropic Claude when available, otherwise return a fallback draft."""
     api_key = os.getenv("ANTHROPIC_API_KEY")
 
@@ -14,7 +14,7 @@ def generate_rca(title, severity, systems, description, timeline, root_cause, fi
 
             client = anthropic.Anthropic(api_key=api_key)
             model = os.getenv("MODEL_NAME", "claude-sonnet-4-6")
-            prompt = build_prompt(title, severity, systems, description, timeline, root_cause, fix_applied, output_style)
+            prompt = build_prompt(title, severity, systems, description, timeline, root_cause, fix_applied, output_style, logs=logs, history=history)
             system_prompt = """
 You are a Senior SRE and incident management specialist at an investment bank.
 Behave as a senior banking operations and reliability engineer, not as a generic chatbot.
@@ -46,10 +46,20 @@ Output requirements:
         except Exception:
             pass
 
-    return fallback_rca(title, severity, systems, description, timeline, root_cause, fix_applied, output_style)
+    return fallback_rca(title, severity, systems, description, timeline, root_cause, fix_applied, output_style, logs=logs, history=history)
 
 
-def build_prompt(title, severity, systems, description, timeline, root_cause, fix_applied, output_style):
+def build_prompt(title, severity, systems, description, timeline, root_cause, fix_applied, output_style, logs=None, history=None):
+    history_section = ""
+    if history:
+        history_excerpt = history[:5000]
+        history_section = f"\n\nPast incidents for comparison:\n{history_excerpt}\n\nPlease identify whether the current incident matches any previous patterns and what fixed those prior incidents."
+
+    log_section = ""
+    if logs:
+        log_excerpt = logs[:5000]
+        log_section = f"\n\nProduction logs:\n{log_excerpt}\n\nPlease analyze the provided logs to identify the first error, the exact root cause, affected services, and the fix recommendations. Include key details from the logs in the RCA."
+
     return f"""
 Create a production-grade RCA document for a banking incident.
 
@@ -69,6 +79,8 @@ Root cause:
 
 Fix applied:
 {fix_applied}
+{history_section}
+{log_section}
 
 Requirements:
 - Use blameless language and focus on process, system, and control weaknesses.
@@ -84,7 +96,7 @@ Requirements:
 """
 
 
-def fallback_rca(title, severity, systems, description, timeline, root_cause, fix_applied, output_style):
+def fallback_rca(title, severity, systems, description, timeline, root_cause, fix_applied, output_style, logs=None, history=None):
     summary = f"{output_style} RCA draft prepared for {title} with severity {severity}. The incident affected {systems} and highlights control gaps, monitoring, and response coordination."
     document = f"""
 {output_style} RCA
